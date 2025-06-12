@@ -3,6 +3,7 @@ import os
 from urllib.parse import urlparse, parse_qs
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
+from validation import validate_summary
 
 def get_video_id(youtube_url):
     parsed_url = urlparse(youtube_url)
@@ -19,7 +20,7 @@ def get_transcript(video_id):
 
 def summarize_with_ollama(text):
     response = requests.post("http://localhost:11434/api/generate", json={
-        "model": "mistral",
+        "model": "llama3.2:3b",
         "prompt": f"Summarize the following YouTube transcript:\n\n{text}",
         "stream": False
     })
@@ -40,20 +41,27 @@ def process_youtube_video(youtube_url, base_output_dir="videos"):
 
         transcript_path = os.path.join(output_dir, "transcript.txt")
         summary_path = os.path.join(output_dir, "summary.txt")
+        validation_path = os.path.join(output_dir, "validation.txt")
 
         with open(transcript_path, 'w', encoding='utf-8') as f:
             f.write(transcript)
+        print(f"Transcript saved to {transcript_path}")
 
-        print(f"✅ Transcript saved to {transcript_path}")
-
-        summary = summarize_with_ollama(transcript[:3000])  # limit to ~3k chars for safety
+        summary = summarize_with_ollama(transcript[:3000])
         with open(summary_path, 'w', encoding='utf-8') as f:
             f.write(summary)
-
-        print(f"✅ Summary saved to {summary_path}")
+        print(f"Summary saved to {summary_path}")
+        
+        validation = validate_summary(summary, transcript[:1500])
+        with open(validation_path, 'w') as f: 
+            f.write(validation)
+        print(f"Validation report saved to {validation_path}")
 
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
 
 # === Example usage ===
-process_youtube_video("https://www.youtube.com/watch?v=AM0eFRihxDw")
+url = input("What video do you want to process? (YouTube URL): ")
+
+# process_youtube_video("https://www.youtube.com/watch?v=AM0eFRihxDw")
+process_youtube_video(url)

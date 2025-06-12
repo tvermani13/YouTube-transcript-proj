@@ -23,6 +23,8 @@ Activate local environment:` source .venv/bin/activate`
 
 Install dependencies: `pip install -r requirements.txt`
 
+Install english language model: `python -m spacy download en_core_web_sm`
+
 Run the program: `python main.py`
 
 Google AI API needed: [https://aistudio.google.com/app/apikey]()

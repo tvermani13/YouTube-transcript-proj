@@ -78,7 +78,9 @@ def process_youtube_video(youtube_url, base_output_dir="videos"):
         print(f"Error: {e}")
 
 ########## Example usage ###########
-url = input("What video do you want to process? (YouTube URL): ")
+process_youtube_video("https://www.youtube.com/watch?v=AM0eFRihxDw")
 
-# process_youtube_video("https://www.youtube.com/watch?v=AM0eFRihxDw")
-process_youtube_video(url)
+
+########## Usage with user input ###########
+# url = input("What video do you want to process? (YouTube URL): ")
+# process_youtube_video(url)

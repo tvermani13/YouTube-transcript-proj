@@ -1,2 +1,4 @@
 videos/
 .venv/
+__pycache__/
+.env

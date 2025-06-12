@@ -24,3 +24,7 @@ Activate local environment:` source .venv/bin/activate`
 Install dependencies: `pip install -r requirements.txt`
 
 Run the program: `python main.py`
+
+Google AI API needed: [https://aistudio.google.com/app/apikey]()
+
+Store as: `GOOGLE_GENAI_API_KEY` in .env file (need to create this yourself)

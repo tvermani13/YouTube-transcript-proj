@@ -23,8 +23,22 @@ Activate local environment:` source .venv/bin/activate`
 
 Install dependencies: `pip install -r requirements.txt`
 
-Run the program: `python main.py`
-
 Google AI API needed: [https://aistudio.google.com/app/apikey]()
 
-Store as: `GOOGLE_GENAI_API_KEY` in .env file (need to create this yourself)
+    Store as:`GOOGLE_GENAI_API_KEY` in .env file (need to create this yourself)
+
+### Run locally:
+
+Run the program: `python main.py`
+
+    Terminal will prompt user for Youtube video link, provide it
+
+Run `streamlit run app.py` to visualize results
+
+### Next steps:
+
+Find a better model for generating the transcript and summary: all the downstream analysis and validation is dependent on the first layer
+
+Why do we need a dropdown for both video and video summary (streamlit)?
+
+Add an option to run the full analysis from the streamlit frontend (textbox for user to enter the youtube url)

@@ -4,7 +4,12 @@ from urllib.parse import urlparse, parse_qs
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 from validation import validate_summary, extract_claims, validate_claims_with_gemini
+from yt_dlp import YoutubeDL
 
+def get_video_title(youtube_url):
+    with YoutubeDL({'quiet': True}) as ydl:
+        info = ydl.extract_info(youtube_url, download=False)
+        return info.get('title', 'Unknown Title')
 
 def get_video_id(youtube_url):
     parsed_url = urlparse(youtube_url)
@@ -39,6 +44,10 @@ def process_youtube_video(youtube_url, base_output_dir="videos"):
         
         output_dir = os.path.join(base_output_dir, video_hash)
         os.makedirs(output_dir, exist_ok=True)
+        
+        title = get_video_title(youtube_url)
+        with open(os.path.join(output_dir, "title.txt"), 'w') as f:
+            f.write(title)
 
         transcript_path = os.path.join(output_dir, "transcript.txt")
         summary_path = os.path.join(output_dir, "summary.txt")
@@ -78,7 +87,7 @@ def process_youtube_video(youtube_url, base_output_dir="videos"):
         print(f"Error: {e}")
 
 ########## Example usage ###########
-url = input("What video do you want to process? (YouTube URL): ")
+# url = input("What video do you want to process? (YouTube URL): ")
 
-# process_youtube_video("https://www.youtube.com/watch?v=AM0eFRihxDw")
-process_youtube_video(url)
+process_youtube_video("https://www.youtube.com/watch?v=AM0eFRihxDw")
+# process_youtube_video(url)

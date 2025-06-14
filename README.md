@@ -23,7 +23,12 @@ Activate local environment:` source .venv/bin/activate`
 
 Install dependencies: `pip install -r requirements.txt`
 
-Google AI API needed: [https://aistudio.google.com/app/apikey]()
+# Install english language model: `python -m spacy download en_core_web_sm`
+
+Run the program: `python main.py`
+
+> > > > > > > acc30cbf287f76d38ca4d481c8566b2cbf9ad287
+> > > > > > > Google AI API needed: [https://aistudio.google.com/app/apikey]()
 
     Store as:`GOOGLE_GENAI_API_KEY` in .env file (need to create this yourself)
 
